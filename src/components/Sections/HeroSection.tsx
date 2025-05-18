@@ -41,10 +41,10 @@ const HeroSection = () => {
             <div className="relative w-80 h-80 animate-fade-in">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-70 animate-pulse"></div>
               <img 
-                src="/lovable-uploads/4b0e3e12-2f25-49a8-93a9-fa8b1db27d16.png" 
+                src="/lovable-uploads/1e6456d7-965a-4628-a570-56e2ac1117fc.png" 
                 alt="Sarveshkumar S S" 
                 className="rounded-full w-full h-full object-cover border-4 border-white shadow-xl relative z-10"
-                style={{ objectPosition: "top center" }}
+                style={{ objectPosition: "center center" }}
               />
             </div>
           </div>

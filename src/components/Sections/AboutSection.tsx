@@ -13,7 +13,7 @@ const AboutSection = () => {
           <div className="col-span-1">
             <div className="sticky top-24">
               <img 
-                src="/lovable-uploads/4b0e3e12-2f25-49a8-93a9-fa8b1db27d16.png" 
+                src="/lovable-uploads/1e6456d7-965a-4628-a570-56e2ac1117fc.png" 
                 alt="Sarveshkumar S S" 
                 className="rounded-lg shadow-xl w-full max-w-md mx-auto"
               />
