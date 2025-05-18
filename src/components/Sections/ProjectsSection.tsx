@@ -19,38 +19,57 @@ interface Project {
 
 const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => void }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
+    <Card className="overflow-hidden hover:shadow-xl transition-all duration-500 h-full flex flex-col hover:-translate-y-2 group">
       <div className="h-48 overflow-hidden">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
       </div>
       <CardContent className="pt-6 flex-grow">
-        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+        <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors">{project.title}</h3>
         <p className="text-gray-700 mb-4">{project.shortDesc}</p>
         <div className="flex flex-wrap gap-2 mb-2">
           {project.tags.map((tag, index) => (
-            <Badge key={index} variant="secondary">{tag}</Badge>
+            <Badge 
+              key={index} 
+              variant="secondary"
+              className="bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+            >
+              {tag}
+            </Badge>
           ))}
         </div>
       </CardContent>
       <CardFooter className="border-t pt-4 flex justify-between">
-        <Button variant="outline" size="sm" onClick={onClick}>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={onClick}
+          className="button-3d group-hover:border-blue-500 group-hover:text-blue-700"
+        >
           Learn More
         </Button>
         <div className="flex space-x-2">
           {project.demoLink && (
             <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-              <Button variant="ghost" size="icon">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="hover:bg-blue-50 hover:text-blue-700 transition-colors"
+              >
                 <ExternalLink size={18} />
               </Button>
             </a>
           )}
           {project.codeLink && (
             <a href={project.codeLink} target="_blank" rel="noopener noreferrer">
-              <Button variant="ghost" size="icon">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="hover:bg-blue-50 hover:text-blue-700 transition-colors"
+              >
                 <Code size={18} />
               </Button>
             </a>
@@ -108,31 +127,39 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="section-container">
-        <h2 className="section-title text-center">My Projects</h2>
+    <section id="projects" className="py-20 bg-gray-50 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white to-transparent"></div>
+      
+      <div className="absolute -left-64 top-40 w-96 h-96 rounded-full bg-blue-100 mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
+      <div className="absolute -right-64 bottom-40 w-96 h-96 rounded-full bg-purple-100 mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      
+      <div className="section-container relative z-10">
+        <h2 className="section-title text-center animate-fade-in">My Projects</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-12">
-          {projects.map((project) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project}
-              onClick={() => setSelectedProject(project)} 
-            />
+          {projects.map((project, i) => (
+            <div key={project.id} className="animate-fade-in" style={{ animationDelay: `${0.2 * i}s` }}>
+              <ProjectCard 
+                project={project}
+                onClick={() => setSelectedProject(project)} 
+              />
+            </div>
           ))}
         </div>
 
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
           {selectedProject && (
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] glass-card">
               <DialogHeader>
                 <DialogTitle className="text-2xl">{selectedProject.title}</DialogTitle>
                 <DialogDescription className="pt-4">
-                  <div className="mb-4">
+                  <div className="mb-4 overflow-hidden rounded-md">
                     <img 
                       src={selectedProject.image} 
                       alt={selectedProject.title}
-                      className="w-full h-48 object-cover rounded-md"
+                      className="w-full h-48 object-cover rounded-md transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                   
@@ -142,14 +169,20 @@ const ProjectsSection = () => {
                   
                   <div className="flex flex-wrap gap-2 mb-6">
                     {selectedProject.tags.map((tag, index) => (
-                      <Badge key={index} variant="secondary">{tag}</Badge>
+                      <Badge 
+                        key={index} 
+                        variant="secondary"
+                        className="bg-blue-50 text-blue-700"
+                      >
+                        {tag}
+                      </Badge>
                     ))}
                   </div>
                   
                   <div className="flex space-x-4 pt-2">
                     {selectedProject.demoLink && (
                       <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer">
-                        <Button className="flex items-center space-x-2">
+                        <Button className="flex items-center space-x-2 button-3d bg-gradient-to-r from-blue-600 to-blue-800">
                           <ExternalLink size={16} />
                           <span>Live Demo</span>
                         </Button>
@@ -157,7 +190,7 @@ const ProjectsSection = () => {
                     )}
                     {selectedProject.codeLink && (
                       <a href={selectedProject.codeLink} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" className="flex items-center space-x-2">
+                        <Button variant="outline" className="flex items-center space-x-2 button-3d">
                           <Code size={16} />
                           <span>View Code</span>
                         </Button>
